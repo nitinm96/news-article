@@ -1,16 +1,26 @@
-const express = require('express');
-const axios = require('axios');
+const express = require("express");
+
 const router = express.Router();
+const {
+  getArticles,
+  getFavoriteArticles,
+  postFavoriteArticles,
+  deleteFavoriteArticle,
+} = require("../controllers/articleController");
+const validateTokenHandler = require("../middleware/validateTokenHandler");
 
 // Fetch news from Mediastack API
-router.get('/', async (req, res) => {
-  try {
-    const { data } = await axios.get(`http://api.mediastack.com/v1/news?access_key=${process.env.ARTICLES_API_KEY}& countries = au,-us& languages = en,-de&`);
-    res.json(data);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: 'Something went wrong while fetching news.' });
-  }
-});
+router.route("/").get(getArticles);
+
+//Fetch Favorite Articles
+router.route("/favorites").get(validateTokenHandler, getFavoriteArticles);
+
+//add articles to favorites
+router.route("/favorites").post(validateTokenHandler, postFavoriteArticles);
+
+//delete articles from favorites
+router
+  .route("/favorites/:id")
+  .delete(validateTokenHandler, deleteFavoriteArticle);
 
 module.exports = router;
