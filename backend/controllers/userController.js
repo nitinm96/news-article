@@ -44,7 +44,9 @@ const loginUser = async (req, res) => {
   try {
     let user = await userModel.findOne({ username });
     if (!user) {
-      return res.status(401).json({ error: "Invalid User" });
+      return res
+        .status(401)
+        .json({ error: "Invalid username or account does not exist" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
