@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/home";
 import Register from "./components/register";
 import Login from "./components/login";
-import Navbar from "./components/navbar";
+import Favorites from "./components/Favorites";
 import { UserProvider } from "./context/UserContext";
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

@@ -36,6 +36,9 @@ const getFavoriteArticles = async (req, res) => {
     const articles = await Article.find({ userId: userId });
     console.log(articles);
 
+    if (articles.length === 0) {
+      return res.status(200).json({ message: "No Articles Favorited Yet." });
+    }
     if (!articles.length) {
       return res
         .status(404)
@@ -116,8 +119,6 @@ const deleteFavoriteArticle = async (req, res) => {
   }
   await Article.deleteOne({
     _id: req.params.id,
-    author: req.body.author,
-    createdAt: req.body.createdAt,
   });
   res.status(200).json({ message: "Article removed from favorites" });
 };

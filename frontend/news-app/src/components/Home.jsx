@@ -54,10 +54,11 @@ function Home() {
   return (
     <div className="">
       <Navbar />
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-10 place-items-center">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-10 place-items-stretch">
         {testData.data.map((article, index) => (
           <ArticleCard
             key={index}
+            id={index}
             author={article.author}
             category={article.category}
             title={article.title}

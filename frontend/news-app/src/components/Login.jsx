@@ -25,6 +25,7 @@ function Login() {
       console.log(response.data);
       setErrState(false);
       navigate("/home");
+      window.location.reload();
     } catch (err) {
       if (err.response && err.response.data) {
         console.log(err.response.data);
@@ -62,7 +63,7 @@ function Login() {
                 type="password"
                 name="password"
                 placeholder="Password"
-                minLength={6}
+                minLength={5}
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
