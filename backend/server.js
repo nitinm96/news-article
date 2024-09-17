@@ -58,4 +58,7 @@ app.use("/api/users", require("./routes/usersRoute"));
 //verify the server is running
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(
+    `API documentation is running at http://localhost:${PORT}/api-docs`
+  );
 });
