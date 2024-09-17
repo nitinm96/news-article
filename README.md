@@ -4,10 +4,11 @@ Setup Instructions
 
 1. Open the project in VS Code and open the terminal. Ensure you are in root path 'Minhas_Nitin_NewsApp'.
 2. CD into 'backend' path in the terminal and run 'npm install' to install node modules for server side, once finished go back to root path.
-3. CD into 'frontend' path in the terminal and run 'npm install' and then CD into 'frontend/news-app' to install node modules for client side, once finished go back into root path 'Minhas_Nitin_NewsApp'.
-4. Ensure 3 node modules folders are present. In 'frontend/news-app', 'frontend', and 'backend'. Application will throw errors if not done correctly.
-5. CD into 'backend' path and run 'npm run dev' in the terminal to start up the server. Once server is up and database is connected, open a new terminal by clicking the plus icon.
-6. In the new terminal CD into 'frontend/news-app' path and run 'npm run dev' in the terminal. Once the application is running press 'o' in the terminal and hit enter if it does not launch automatically.
+3. CD into 'frontend' path in the terminal and run 'npm install'.
+4. CD into 'news-app' path and run 'npm install' once finished go back into root path 'Minhas_Nitin_NewsApp'.
+5. Ensure 3 node modules folders are present. In 'frontend/news-app', 'frontend', and 'backend' paths. Application will throw errors if not done correctly.
+6. CD into 'backend' path and run 'npm run dev' in the terminal to start up the server. Once server is up and database is connected, open a new terminal by clicking the plus icon.
+7. In the new terminal CD into 'frontend/news-app' path and run 'npm run dev' in the terminal. Once the application is running press 'o' in the terminal and hit enter if it does not launch automatically.
 
 Testing Account:
 
