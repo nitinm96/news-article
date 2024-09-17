@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/home";
-import Register from "./components/register";
-import Login from "./components/login";
+import Home from "./components/Home";
+import Register from "./components/Register";
+import Login from "./components/Login";
 import Favorites from "./components/Favorites";
 import FullArticle from "./components/FullArticle";
 import { UserProvider } from "./context/UserContext";
@@ -10,6 +10,7 @@ import { UserProvider } from "./context/UserContext";
 function App() {
   return (
     <>
+      {/* wrap the application with the UserProvider context provider*/}
       <UserProvider>
         <BrowserRouter>
           <Routes>

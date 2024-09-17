@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/articleLogo.png";
 
 function Navbar() {
-  const { user, setUser, loading } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
+  //function to logout the user
   const logoutUser = () => {
-    localStorage.removeItem("accessToken");
-    setUser(null);
+    localStorage.removeItem("accessToken"); //remove the token from local storage
+    setUser(null); //set the user to null
   };
   return (
     <div className="sticky top-0 z-30">
@@ -21,24 +22,26 @@ function Navbar() {
             <img src={Logo} width={250} className="object-contain" />
           </Link>
           <div className="flex items-center justify-end w-full">
+            {/* display favorite link if user is logged in */}
             {user && (
-              <div>
-                <button className="px-4 mx-5 text-xl hover:underline font-bold">
-                  <Link to="/favorites">Favorties</Link>
-                </button>
-              </div>
+              <>
+                <div>
+                  <button className="px-4 mx-5 text-xl hover:underline font-bold">
+                    <Link to="/favorites">Favorties</Link>
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="px-4 mx-5 text-xl hover:p-4 hover:bg-gray-200 rounded-full ease-in-out transition-all duration-200"
+                    onClick={logoutUser}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
             )}
-
-            {user ? (
-              <div>
-                <button
-                  className="px-4 mx-5 text-xl hover:p-4 hover:bg-gray-200 rounded-full ease-in-out transition-all duration-200"
-                  onClick={logoutUser}
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
+            {/* display log in link if no user */}
+            {!user && (
               <Link to="/login">
                 <button className="px-4 mx-5 text-xl hover:p-4 hover:bg-gray-200 rounded-full ease-in-out transition-all duration-200">
                   Sign in

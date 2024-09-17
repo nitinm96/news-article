@@ -1,49 +1,54 @@
 const axios = require("axios");
 const Article = require("../models/articleModel");
 const User = require("../models/userModel");
-//@desc get all articles
-//@route GET /api/articles
-//@access Private
 
+//@desc get all articles from 3rd Party API
+//@route GET /api/articles
+//@access Public
 const getArticles = async (req, res) => {
   const { category } = req.query;
   try {
+    //api call to fetch news
     let query = `http://api.mediastack.com/v1/news?access_key=${process.env.ARTICLES_API_KEY}&countries=us&languages=en&limit=100`;
-
+    //check category
     if (category) {
       query += `&categories=${encodeURIComponent(category)}`;
     }
-
     const { data } = await axios.get(query);
     res.json(data);
   } catch (error) {
     console.error(error.message);
     res
       .status(500)
-      .json({ error: "Something went wrong while fetching news." });
+      .json({ error: "Something went wrong while fetching news.", error });
   }
 };
 
 //@desc get all favorite articles for logged in user
 //@route GET /api/articles/favorites
 //@access Private
-
 const getFavoriteArticles = async (req, res) => {
   try {
+    //get user id from request
     const userId = req.user.id;
 
+    //check if user exists in database
     const user = await User.findOne({ _id: userId });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     console.log(user);
+
     // Find fav articles with user id
     const articles = await Article.find({ userId: userId });
     console.log(articles);
 
+    //user has 0 favorite articles
     if (articles.length === 0) {
       return res.status(200).json({ message: "No Articles Favorited Yet." });
     }
+
+    //no articles exist for user
     if (!articles.length) {
       return res
         .status(404)
@@ -62,7 +67,6 @@ const getFavoriteArticles = async (req, res) => {
 //@desc add articles to favorites
 //@route POST /api/articles/favorites
 //@access Private
-
 const postFavoriteArticles = async (req, res) => {
   console.log("request body: ", req.body);
   //destructure the parameters from request body
@@ -79,6 +83,7 @@ const postFavoriteArticles = async (req, res) => {
     published_at,
   } = req.body;
 
+  //validate the parameters
   if (
     !author ||
     !title ||
@@ -94,6 +99,7 @@ const postFavoriteArticles = async (req, res) => {
     return res.status(400).json({ error: "Please fill in all fields" });
   }
 
+  //add new article to favorites
   const newFavArticle = await Article.create({
     userId: req.user.id,
     author,
@@ -113,15 +119,17 @@ const postFavoriteArticles = async (req, res) => {
 //@desc delete articles from favorites
 //@route DELETE /api/articles/favorites/:id
 //@access Private
-
 const deleteFavoriteArticle = async (req, res) => {
+  //find article by id
   const article = await Article.findById(req.params.id);
   if (!article) {
     return res.status(404).json({ message: "Article not found" });
   }
+  //check if article belongs to user
   if (article.userId.toString() !== req.user.id) {
     return res.status(403).json({ message: "User not authorized" });
   }
+  //delete article for authorized user
   await Article.deleteOne({
     _id: req.params.id,
   });

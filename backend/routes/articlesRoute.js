@@ -1,6 +1,5 @@
 const express = require("express");
 
-const router = express.Router();
 const {
   getArticles,
   getFavoriteArticles,
@@ -9,16 +8,19 @@ const {
 } = require("../controllers/articleController");
 const validateTokenHandler = require("../middleware/validateTokenHandler");
 
-// Fetch news from Mediastack API
+//Create a new router to handle /articles routes
+const router = express.Router();
+
+//Fetch news from Mediastack API
 router.route("/").get(getArticles);
 
-//Fetch Favorite Articles
+//Fetch favorite articles for authorized user
 router.route("/favorites").get(validateTokenHandler, getFavoriteArticles);
 
-//add articles to favorites
+//add articles to favorites for authorized user
 router.route("/favorites").post(validateTokenHandler, postFavoriteArticles);
 
-//delete articles from favorites
+//delete articles from favorites for authorized user
 router
   .route("/favorites/:id")
   .delete(validateTokenHandler, deleteFavoriteArticle);

@@ -18,26 +18,29 @@ function ArticleCard({
   publishedAt,
   handler = { getFavorites },
 }) {
-  const { user, setUser, loading } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const removeFavorite = async (articleId) => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken"); //get the token from local storage
 
+      //send request to the server to remove the article from favorites
       const response = await axios.delete(
         `http://localhost:5001/api/articles/favorites/${articleId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(response.data.message);
-      handler();
+      // console.log(response.data.message); //log the response data
+
+      handler(); //get the updated list of favorites from function passed as prop from parent component
     } catch (error) {
       console.log(error);
     }
   };
 
+  //navigate to the full article view and pass the article details as state
   const handleViewArticle = () => {
     navigate(`/article/${id}`, {
       state: {
@@ -56,6 +59,7 @@ function ArticleCard({
     });
   };
 
+  //format the date to a long date format
   const formatLongDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       weekday: "long",
@@ -72,10 +76,10 @@ function ArticleCard({
     >
       <div className="flex flex-col justify-center items-start">
         <div className="font-bold text-2xl px-5">{title}</div>
-        <p className="p-5 text-md text-start border-b-4 border-cyan-400">{`${description.substring(
-          0,
-          150
-        )}...`}</p>
+        <p className="p-5 text-md text-start border-b-4 border-cyan-400">
+          {`${description.substring(0, 100)}...`}{" "}
+          {/* limit description to 100 characters */}
+        </p>
 
         <div className="flex flex-row items-center justify-between mt-2 w-full">
           <div>
@@ -91,6 +95,7 @@ function ArticleCard({
             </div>
           </div>
           <div>
+            {/* check if user is logged in and display remove button */}
             {user && (
               <button>
                 <RemoveCircleOutlineOutlinedIcon

@@ -3,11 +3,12 @@ const jwt = require("jsonwebtoken");
 const validateTokenHandler = async (req, res, next) => {
   try {
     let token;
-    let authHeader = req.headers.authorization; // Use lowercase 'authorization'
+    // Get Authorization header from request
+    let authHeader = req.headers.authorization;
 
-    // Check if Authorization header is present and starts with 'Bearer'
+    // Check if Authorization header is present and starts with bearer
     if (authHeader && authHeader.startsWith("Bearer")) {
-      token = authHeader.split(" ")[1]; // Extract token from 'Bearer <token>'
+      token = authHeader.split(" ")[1];
       // Verify the token
       jwt.verify(token, process.env.ACCESS_TOKEN_SECECT, (err, decoded) => {
         if (err) {

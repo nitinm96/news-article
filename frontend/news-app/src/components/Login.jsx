@@ -11,29 +11,28 @@ function Login() {
   const [errState, setErrState] = useState(false);
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); //prevent default form submission
     try {
+      //send request to the server to login with the provided credentials
       const response = await axios.post(
         "http://localhost:5001/api/users/login",
-        { username, password },
-        {
-          headers: { "Content-Type": "application/json" }, // Optional if your API expects JSON by default
-        }
+        { username, password }
       );
       const token = response.data.accessToken;
-      localStorage.setItem("accessToken", token);
+      localStorage.setItem("accessToken", token); //set token in local storage
 
       console.log(response.data);
-      setErrState(false);
-      navigate("/home");
+      setErrState(false); //set error state to false
+      navigate("/home"); //navigate user to homepage once logged in
       window.location.reload();
     } catch (err) {
+      //if there is an error response from the server
       if (err.response && err.response.data) {
         console.log(err.response.data);
-        setErrState(true);
-        setErrorMessage(err.response.data.error);
+        setErrState(true); //set error state to true
+        setErrorMessage(err.response.data.error); //set error message
       } else {
-        console.error("Unexpected Error:", err); // Log unexpected errors
+        console.error("Error:", err);
       }
     }
   };
@@ -42,6 +41,7 @@ function Login() {
       <div className="flex justify-center items-center h-screen ">
         <div className="flex flex-col items-center justify-center">
           <form onSubmit={handleLogin}>
+            {/* form container */}
             <div className="flex flex-col justify-center items-center bg-white rounded-xl p-20 space-y-4 shadow-2xl">
               <img src={Logo} alt="logo" width={300} />
               <h1 className="text-3xl">Welcome, Sign in to your account!</h1>
@@ -51,6 +51,7 @@ function Login() {
                   Register
                 </Link>
               </div>
+              {/* input fields for username */}
               <input
                 className="border-2 border-black p-2 m-2 rounded-lg w-3/4"
                 type="text"
@@ -59,7 +60,9 @@ function Login() {
                 required
                 minLength={5}
                 onChange={(e) => setUsername(e.target.value)}
+                onFocusCapture={() => setErrState(false)}
               />
+              {/* input fields for password */}
               <input
                 className="border-2 border-black p-2 m-2 rounded-lg w-3/4"
                 type="password"
@@ -68,7 +71,9 @@ function Login() {
                 minLength={5}
                 required
                 onChange={(e) => setPassword(e.target.value)}
+                onFocusCapture={() => setErrState(false)}
               />
+              {/* error message */}
               {errState && <div className="text-red-500">{errorMessage}</div>}
               <button
                 className="bg-cyan-500 text-white rounded-lg text-xl px-10 py-2 m-2"
@@ -80,6 +85,7 @@ function Login() {
                 Continue without an account
               </Link>
             </div>
+            {/* form container end */}
           </form>
         </div>
       </div>

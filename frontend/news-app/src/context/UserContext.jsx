@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
-// Create the context
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -10,11 +9,13 @@ export const UserProvider = ({ children }) => {
 
   const fetchCurrentUser = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
+      const token = localStorage.getItem("accessToken"); //get token from local storage
+      //validate token exists
       if (!token) {
         setLoading(false);
         return;
       }
+      //send request to get current user with Authorization bearer token
       const response = await axios.get(
         "http://localhost:5001/api/users/current",
         {
@@ -29,10 +30,11 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  //fetch user on component mount
   useEffect(() => {
     console.log("Fetching user...");
-    console.log(user);
     fetchCurrentUser();
+    console.log("Current User: ", user);
   }, []);
 
   return (

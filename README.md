@@ -23,10 +23,16 @@ ctrl + c: terminte application
 
 Application Architecture
 Frontend:
-Application is a react+vite application with tailwind for css and MUI for the icons that were used were used.
+Application is a react+vite application with tailwind for styling and MUI for icons.
 
 Backend:
-The server is using express and Node.js to manage news fetching, article details, and favorite articles following MVC architeture. MongoDB is used for the implementation of a datastore to store user data including favorite articles and search history. For user authentication the application is using bycrpt to hash user passwords and jwt (jsonwebtoken) to provide a authorization token for user authentication. The thirdparty news API used is Mediastack to provide news and blog articles for various categories. To ensure SECERT KEYS are hidden the backend is using dotenv.
+
+- The server is using express and Node.js to manage user fetching, user creating, news fetching, article details, and favorite articles following MVC architeture.
+- MongoDB is used for the implementation of a datastore to store user data including favorite articles and search history.
+- For user authentication the application is using bycrpt to hash user passwords and jwt (jsonwebtoken) to provide a authorization token for user authentication.
+- The thirdparty news API used is Mediastack to provide news and blog articles for various categories.
+- All SECERT KEYS such database, JWT, API KEYS are store in .env and using dotenv dependency to use. The .env file is also in the gitignore.
+
 Versioning: Using github for version control and backup of code.
 
 Link to Repo: https://github.com/nitinm96/news-article

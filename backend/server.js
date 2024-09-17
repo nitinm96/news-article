@@ -5,6 +5,7 @@ const cors = require("cors");
 const corsOptions = {
   origin: ["http://localhost:5173"],
 };
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -16,6 +17,7 @@ app.use(cors(corsOptions));
 app.use("/api/articles", require("./routes/articlesRoute"));
 app.use("/api/users", require("./routes/usersRoute"));
 
+//verify the server is running
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
