@@ -36,6 +36,7 @@ function Home() {
   // }, [selectedCategory]);
 
   // Function to fetch articles from test data for testing
+  useEffect(() => {
   const fetchArticlesTestData = async () => {
     try {
       setArticles(testData.data);
@@ -44,8 +45,7 @@ function Home() {
       console.error("Error fetching articles", err);
     }
   };
-
-  useEffect(() => {
+  
     fetchArticlesTestData();
   }, [selectedCategory]);
 
@@ -96,8 +96,9 @@ function Home() {
           <div
             key={index}
             onClick={() => handleCategoryClick(category)}
-            className="text-white text-sm mx-5 cursor-pointer hover:underline"
-          >
+            className={`text-white text-sm mx-5 cursor-pointer hover:underline ${
+            selectedCategory === category.toLowerCase() ? 'underline' : ''
+      }`}          >
             {category}
           </div>
         ))}
