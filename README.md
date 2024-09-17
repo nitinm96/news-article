@@ -4,9 +4,14 @@ Setup Instructions
 
 1. Open the project in VS Code and open the terminal. Ensure you are in root path 'Minhas_Nitin_NewsApp'
 2. CD into 'backend' path in the terminal and run 'npm install' to install node modules for server side, once finished go back to root path.
-3. CD into 'frontend' path in the terminal and run 'npm install' and then CD into 'news-app' and run 'npm install' to install node modules for client side, once finished go back into root path
+3. CD into 'frontend/news-app' path in the terminal and run 'npm install' to install node modules for client side, once finished go back into root path
 4. CD into 'backend' path and run 'npm run dev' in the terminal to start up the server. Once server is up open a new terminal by clicking the plus icon.
 5. In the new terminal CD into 'frontend/news-app' path and run 'npm run dev' in the terminal. Once the application is running press 'o' in the terminal and hit enter if it does not launch automatically.
+
+Testing Account:
+
+- username:admin
+- password:admin
 
 Terminal Commands
 cd: go into directory path
@@ -16,7 +21,7 @@ Express Terminal Commands:
 rs: restart server
 ctrl + c: terminate server
 
-React + Vite Commands:
+React + Vite Terminal Commands:
 o: open application
 r: restart application
 ctrl + c: terminte application
@@ -39,3 +44,5 @@ Link to Repo: https://github.com/nitinm96/news-article
 
 Special Features:
 To add and view favorite articles, the user must be logged in. The user can still view articles if they do not have an account however access will be restricted.
+
+- If you don't want to create a account, you can use the testing account mentioned above to test the favoriting functionality otherwise feel free to create a new account.
