@@ -38,6 +38,8 @@ Backend:
 - The thirdparty news API used is Mediastack to provide news and blog articles for various categories.
 - All SECERT KEYS such database, JWT, API KEYS are store in .env and using dotenv dependency to use. The .env file is also in the gitignore.
 
+API Documentation Avaliable at when backend server is running: http://localhost:5001/api-docs/
+
 Versioning: Using github for version control and backup of code.
 
 Link to Repo: https://github.com/nitinm96/news-article

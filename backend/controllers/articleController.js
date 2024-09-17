@@ -15,7 +15,7 @@ const getArticles = async (req, res) => {
       query += `&categories=${encodeURIComponent(category)}`;
     }
     const { data } = await axios.get(query);
-    res.json(data);
+    res.status(200).json(data);
   } catch (error) {
     console.error(error.message);
     res
@@ -55,7 +55,7 @@ const getFavoriteArticles = async (req, res) => {
         .json({ message: "No articles found for this user" });
     }
     // Return the articles
-    res.json({ articles });
+    res.status(200).json({ articles });
   } catch (error) {
     console.log(error.message);
     res

@@ -17,7 +17,7 @@ const registerUser = async (req, res) => {
     //check if user already exists
     let user = await userModel.findOne({ username });
     if (user) {
-      return res.status(400).json({ error: "Username already exists" });
+      return res.status(409).json({ error: "Username already exists" });
     }
     //create a new user
     user = new userModel({
@@ -30,7 +30,7 @@ const registerUser = async (req, res) => {
 
     //save new user to database
     await user.save();
-    res.json({ message: "User registered successfully" });
+    res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     res.status(500).json({ error: "Failed to register user" });
   }
@@ -89,7 +89,7 @@ const currentUser = async (req, res) => {
   try {
     const user = await userModel.findById(req.user.id);
     if (!user) return res.status(404).json({ message: "User not found" });
-    res.json(user);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch user" });
   }
