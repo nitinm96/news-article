@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
-import StarIcon from "@mui/icons-material/Star";
+import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 
 function ArticleCard({
   id,
@@ -16,39 +16,23 @@ function ArticleCard({
   language,
   source,
   publishedAt,
+  handler = { getFavorites },
 }) {
   const { user, setUser, loading } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const addToFavourites = async () => {
+  const removeFavorite = async (articleId) => {
     try {
       const token = localStorage.getItem("accessToken");
-      const userId = user._id;
-      console.log(publishedAt);
-      const response = await axios.post(
-        "http://localhost:5001/api/articles/favorites",
+
+      const response = await axios.delete(
+        `http://localhost:5001/api/articles/favorites/${articleId}`,
         {
-          userId: userId,
-          author: author || "Unknown",
-          title: title || "Unknown",
-          description: description || "Unknown",
-          url: url || "Unknown",
-          source: source || "",
-          image: image || "Unknown",
-          category: category || "Unknown",
-          language: language || "Unknown",
-          country: country || "Unknown",
-          published_at: publishedAt || "Unknown",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Add the token to the request header
-            "Content-Type": "application/json",
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       console.log(response.data.message);
-      alert(response.data.message);
+      handler();
     } catch (error) {
       console.log(error);
     }
@@ -71,6 +55,7 @@ function ArticleCard({
       },
     });
   };
+
   const formatLongDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       weekday: "long",
@@ -99,16 +84,20 @@ function ArticleCard({
               {`${formatLongDate(publishedAt)}`}
             </div>
             <div
-              className="cursor-pointer underline text-blue-800"
               onClick={handleViewArticle}
+              className="cursor-pointer underline text-blue-800"
             >
               View Article
             </div>
           </div>
           <div>
             {user && (
-              <button onClick={addToFavourites}>
-                <StarIcon fontSize="large" htmlColor="#ffea00" />
+              <button>
+                <RemoveCircleOutlineOutlinedIcon
+                  onClick={() => removeFavorite(id)}
+                  fontSize="large"
+                  htmlColor="#f24b3f"
+                />
               </button>
             )}
           </div>

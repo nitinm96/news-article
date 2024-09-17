@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "../assets/articleLogo.png";
 
 function Register() {
   const navigate = useNavigate();
@@ -29,6 +30,8 @@ function Register() {
       <div className="flex flex-col items-center justify-center">
         <form onSubmit={handleRegister}>
           <div className="flex flex-col justify-center items-center bg-white rounded-xl p-20 space-y-4 shadow-2xl">
+            <img src={Logo} alt="logo" width={300} />
+
             <h1 className="text-3xl">Sign up for your account!</h1>
             <div className="flex items-center justify-between">
               <p>Already have an account? </p>
@@ -50,18 +53,18 @@ function Register() {
               type="password"
               name="password"
               placeholder="Password"
-              minLength={6}
+              minLength={5}
               required
               onChange={(e) => setPassword(e.target.value)}
             />
             <button
-              className="bg-black text-white rounded-lg text-xl px-10 py-2 m-2"
+              className="bg-cyan-500 text-white rounded-lg text-xl px-10 py-2 m-2"
               type="submit"
             >
               Register
             </button>
             <Link to="/home" className="underline">
-              Continue without account
+              Continue without an account
             </Link>
           </div>
         </form>

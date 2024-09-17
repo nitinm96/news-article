@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from "../assets/articleLogo.png";
 
 function Login() {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ function Login() {
         <div className="flex flex-col items-center justify-center">
           <form onSubmit={handleLogin}>
             <div className="flex flex-col justify-center items-center bg-white rounded-xl p-20 space-y-4 shadow-2xl">
+              <img src={Logo} alt="logo" width={300} />
               <h1 className="text-3xl">Welcome, Sign in to your account!</h1>
               <div className="flex items-center justify-between">
                 <p>Don't have an account? </p>
@@ -69,13 +71,13 @@ function Login() {
               />
               {errState && <div className="text-red-500">{errorMessage}</div>}
               <button
-                className="bg-blue-400 text-white rounded-lg text-xl px-10 py-2 m-2"
+                className="bg-cyan-500 text-white rounded-lg text-xl px-10 py-2 m-2"
                 type="submit"
               >
                 Login
               </button>
               <Link to="/home" className="underline">
-                Continue without account
+                Continue without an account
               </Link>
             </div>
           </form>

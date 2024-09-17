@@ -4,6 +4,7 @@ import Home from "./components/home";
 import Register from "./components/register";
 import Login from "./components/login";
 import Favorites from "./components/Favorites";
+import FullArticle from "./components/FullArticle";
 import { UserProvider } from "./context/UserContext";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/article/:id" element={<FullArticle />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
-import ArticleCard from "./ArticleCard";
+import FavoriteArticleCard from "./FavoriteArticleCard";
 import Navbar from "./navbar";
 import { Link } from "react-router-dom";
-import DeleteIcon from "@mui/icons-material/Delete";
+import Logo from "../assets/articleLogo.png";
 
 function Favorites() {
   const { user, setUser, loading } = useContext(UserContext);
@@ -30,23 +30,6 @@ function Favorites() {
     }
   };
 
-  const removeFavorite = async (articleId) => {
-    try {
-      const token = localStorage.getItem("accessToken");
-
-      const response = await axios.delete(
-        `http://localhost:5001/api/articles/favorites/${articleId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.log(response.data.message);
-      getFavorites();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     getFavorites();
   }, []);
@@ -61,9 +44,9 @@ function Favorites() {
               favorites.articles.map((article, index) => (
                 <>
                   <div>
-                    <ArticleCard
+                    <FavoriteArticleCard
                       key={article._id}
-                      id={index}
+                      id={article._id}
                       author={article.author}
                       category={article.category}
                       title={article.title}
@@ -74,15 +57,8 @@ function Favorites() {
                       language={article.language}
                       source={article.source}
                       publishedAt={article.published_at}
+                      handler={getFavorites}
                     />
-                    <div className="">
-                      <button>
-                        <DeleteIcon
-                          onClick={() => removeFavorite(article._id)}
-                          fontSize="large"
-                        />
-                      </button>
-                    </div>
                   </div>
                 </>
               ))}
@@ -94,16 +70,23 @@ function Favorites() {
         </>
       ) : (
         <>
-          <div className="flex flex-col items-center justify-center h-screen">
-            <div className="text-2xl">
-              Please sign in to view your favorites
+          <div className="flex flex-col items-center justify-center h-screen space-y-10">
+            <img src={Logo} alt="logo" width={300} />
+            <div className="text-4xl">
+              Please sign in to view your favorite articles
             </div>
-            <Link to="/login">
-              <button>Sign In</button>
-            </Link>
-            <Link to="/home">
-              <button>Home</button>
-            </Link>
+            <div className="flex items-center justify-center space-x-5">
+              <Link to="/home">
+                <button className="border-2 border-cyan-500 text-cyan-500 px-8 rounded-md text-2xl hover:text-white hover:bg-cyan-500 ease-in-out transition-all duration-300">
+                  Home
+                </button>
+              </Link>
+              <Link to="/login">
+                <button className="border-2 border-cyan-500 bg-cyan-500 px-8 rounded-md text-white text-2xl hover:opacity-90 hover:bg-white hover:text-cyan-500 ease-in-out transition-all duration-300">
+                  Sign In
+                </button>
+              </Link>
+            </div>
           </div>
         </>
       )}

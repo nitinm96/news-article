@@ -6,10 +6,15 @@ const User = require("../models/userModel");
 //@access Private
 
 const getArticles = async (req, res) => {
+  const { category } = req.query;
   try {
-    const { data } = await axios.get(
-      `http://api.mediastack.com/v1/news?access_key=${process.env.ARTICLES_API_KEY}& countries = au,-us& languages = en,-de`
-    );
+    let query = `http://api.mediastack.com/v1/news?access_key=${process.env.ARTICLES_API_KEY}&countries=us&languages=en&limit=100`;
+
+    if (category) {
+      query += `&categories=${encodeURIComponent(category)}`;
+    }
+
+    const { data } = await axios.get(query);
     res.json(data);
   } catch (error) {
     console.error(error.message);
