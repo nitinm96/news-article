@@ -13,7 +13,6 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState("general"); // Default category
 
   // Function to fetch articles from api
-
   // useEffect(() => {
   //   const fetchArticles = async () => {
   //     try {
@@ -35,7 +34,7 @@ function Home() {
   //   fetchArticles(); // Fetch articles when component mounts or category changes
   // }, [selectedCategory]);
 
-  // Function to fetch articles from test data for testing
+  // Function to fetch articles FROM TEST DATA FOR TESTING************
   useEffect(() => {
   const fetchArticlesTestData = async () => {
     try {
@@ -45,7 +44,6 @@ function Home() {
       console.error("Error fetching articles", err);
     }
   };
-  
     fetchArticlesTestData();
   }, [selectedCategory]);
 
