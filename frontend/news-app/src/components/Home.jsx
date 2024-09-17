@@ -13,39 +13,39 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState("general"); // Default category
 
   // Function to fetch articles from api
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        // Fetch articles by category
-        const response = await axios.get("http://localhost:5001/api/articles", {
-          params: {
-            category: selectedCategory,
-          },
-        });
-        // console.log("pull articles by category:", selectedCategory); //confirm category selected
-        const fetchedArticles = response.data.data;
-        setArticles(fetchedArticles); // Store all articles
-        setCurrentPage(1); // Reset current page to 1
-      } catch (err) {
-        console.error("Error fetching articles: ", err);
-      }
-    };
-
-    fetchArticles(); // Fetch articles when component mounts or category changes
-  }, [selectedCategory]);
-
-  // ******************Function to fetch articles FROM TEST DATA FOR TESTING************
   // useEffect(() => {
-  //   const fetchArticlesTestData = async () => {
+  //   const fetchArticles = async () => {
   //     try {
-  //       setArticles(testData.data);
+  //       // Fetch articles by category
+  //       const response = await axios.get("http://localhost:5001/api/articles", {
+  //         params: {
+  //           category: selectedCategory,
+  //         },
+  //       });
+  //       // console.log("pull articles by category:", selectedCategory); //confirm category selected
+  //       const fetchedArticles = response.data.data;
+  //       setArticles(fetchedArticles); // Store all articles
   //       setCurrentPage(1); // Reset current page to 1
   //     } catch (err) {
-  //       console.error("Error fetching articles", err);
+  //       console.error("Error fetching articles: ", err);
   //     }
   //   };
-  //   fetchArticlesTestData();
+
+  //   fetchArticles(); // Fetch articles when component mounts or category changes
   // }, [selectedCategory]);
+
+  // ******************Function to fetch articles FROM TEST DATA FOR TESTING************
+  useEffect(() => {
+    const fetchArticlesTestData = async () => {
+      try {
+        setArticles(testData.data);
+        setCurrentPage(1); // Reset current page to 1
+      } catch (err) {
+        console.error("Error fetching articles", err);
+      }
+    };
+    fetchArticlesTestData();
+  }, [selectedCategory]);
   // ******************Function to fetch articles FROM TEST DATA FOR TESTING END************
 
   // Get current articles
